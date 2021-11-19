@@ -1,0 +1,25 @@
+{
+  "name": "pingler",
+  "version": "1.0.0",
+  "description": "Ping your buddy through this cool social media app, Pingler 2021 All rights reserved",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mern",
+    "merng",
+    "graphql",
+    "nodejs",
+    "expressjs",
+    "reactjs",
+    "stevengragg"
+  ],
+  "author": "Steven Gragg",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^3.5.0",
+    "graphql": "^15.7.2",
+    "mongoose": "^6.0.13"
+  }
+}
