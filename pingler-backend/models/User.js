@@ -1,5 +1,5 @@
-import { model, Schema } from 'mongoose';
-
+import pkg from 'mongoose';
+const { model, Schema } = pkg;
 // User Schema
 
 const userSchema = new Schema({
@@ -9,4 +9,5 @@ const userSchema = new Schema({
     createdAt: String
 })
 
-module.exports = model('User', userSchema);
+const Users = model('User', userSchema);
+export default Users;

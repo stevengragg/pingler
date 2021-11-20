@@ -1,5 +1,5 @@
-import { model, Schema } from 'mongoose';
-
+import pkg from 'mongoose';
+const { model, Schema } = pkg;
 // User Schema
 
 const postSchema = new Schema({
@@ -24,5 +24,5 @@ const postSchema = new Schema({
         ref: 'users'
     }
 })
-
-module.exports = model('Post', postSchema);
+const Posts = model('Post', postSchema);
+export default Posts;

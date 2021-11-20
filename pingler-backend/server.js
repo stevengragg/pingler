@@ -1,24 +1,18 @@
 // Pingler Server Entry point
 
-
+//Dependencies
 import { ApolloServer } from 'apollo-server'
-import gql from 'graphql-tag'
+
 import mongoose from 'mongoose'
 
-
+// Data Config
 const port = 5000;
 const connection_uri = 'mongodb+srv://pingAdmin001:weGotCheese002!@cluster0.pqs0x.mongodb.net/pinglerdb?retryWrites=true&w=majority'
-const typeDefs = gql`
-    type Query {
-        sayHi: String!
-    }
-`
 
-const resolvers = {
-    Query: {
-        sayHi: () => 'Hello world!'
-    }
-}
+
+// GraphQL
+import typeDefs from './graphql/typedefs.js'
+import resolvers from './graphql/resolvers/index.js'
 
 const server = new ApolloServer({typeDefs, resolvers});
 // Connect to MongoDB
