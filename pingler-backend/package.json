@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Ping your buddy through this cool social media app, Pingler 2021 All rights reserved",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
