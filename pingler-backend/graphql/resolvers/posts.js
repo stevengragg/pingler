@@ -1,21 +1,20 @@
 // Imports Model
-import Posts from '../../models/Post.js'
+import Post from "../../models/Post.js";
 
 const postsResolver = {
-    Query: {
+  Query: {
+    /**
+     * @returns {Object} Posts fetched object
+     */
 
-        /**
-         * 
-         * @returns {Object} Posts fetched object
-         */
-        async getPosts() {
-            try {
-                return await Posts.find();
-            } catch (error) {
-                throw new Error(error)
-            }
-        }
-    }
-}
+    async getPosts() {
+      try {
+        return await Post.find();
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+  },
+};
 
 export default postsResolver;

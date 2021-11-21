@@ -21,7 +21,9 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^3.5.0",
+    "bcryptjs": "^2.4.3",
     "graphql": "^15.7.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13"
   }
 }
