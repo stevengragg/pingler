@@ -33,13 +33,18 @@ const typeDefs = gql`
   # Posts.getPosts Query type def
   type Query {
     getPosts: [Post]
+    getPost(postId: ID!): Post
   }
   # Mutations
   type Mutation {
-    # registration form mutation with RegisterInput input def and required User type def
+    # registration form mutation with RegisterInput input def and return User type def
     register(registerInput: RegisterInput): User!
-    # login form mutation with LoginInput input def and required User type def
+    # login form mutation with LoginInput input def and return User type def
     login(loginInput: LoginInput): User!
+    # create post form mutation with body input and return Post type def
+    createPost(body: String!): Post!
+    # delete post mutation with postId input and return Post type def
+    deletePost(postId: String!): Post!
   }
 `;
 

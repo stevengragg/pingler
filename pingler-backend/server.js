@@ -14,7 +14,12 @@ const connection_uri = Config.MONGODB;
 import typeDefs from "./graphql/typedefs.js";
 import resolvers from "./graphql/resolvers/index.js";
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  //req from express
+  context: ({ req }) => ({ req }),
+});
 // Connect to MongoDB
 mongoose
   .connect(connection_uri, {
