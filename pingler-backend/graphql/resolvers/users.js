@@ -8,6 +8,7 @@ import {
   validateRegisterInput,
   validateLoginInput,
 } from "../../utils/validators.js";
+import log from "../../utils/log.js";
 
 /**
  *
@@ -44,6 +45,7 @@ const usersResolver = {
       context,
       info
     ) {
+      log("register: start", { running: true });
       // Validate user data
       const { valid, errors } = validateRegisterInput(
         username,
@@ -78,7 +80,7 @@ const usersResolver = {
       });
 
       const res = await newUser.save();
-      console.log(res);
+      log("register: saving", { res });
       // Generate Json Web token
       const token = generateToken(res);
 
@@ -99,12 +101,14 @@ const usersResolver = {
      */
 
     async login(_, { loginInput: { username, password } }, context, info) {
+      log("login: start", { running: true });
       const { valid, errors } = validateLoginInput(username, password);
 
       if (!valid) {
         throw new UserInputError("Errors", { errors });
       }
       const user = await User.findOne({ username });
+      log("login: finding user", { user });
       if (!user) {
         errors.general = "User not found";
         throw new UserInputError(errors.general, { errors });
@@ -115,9 +119,7 @@ const usersResolver = {
         errors.general = "Wrong credentials";
         throw new UserInputError(errors.general, { errors });
       }
-
       const token = generateToken(user);
-
       return {
         ...user._doc,
         id: user._id,
