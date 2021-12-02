@@ -32,9 +32,10 @@ const usersResolver = {
     /**
      *
      * @param {*} _ Parent resolvers
-     * @param {*} args Argument from register mutation, [destructured]
+     * @param {*} args Argument from register mutation, [destructured] { registerInput: { username, email, password, confirmPassword } }
      * @param {*} context
      * @param {*} info General info from meta data
+     * @description Register mutation that takes registration form input
      */
 
     async register(
@@ -87,6 +88,15 @@ const usersResolver = {
         token,
       };
     },
+
+    /**
+     *
+     * @param {*} _ Parent resolvers
+     * @param {*} args Argument from register mutation, [destructured] { loginInput: { username, password } }
+     * @param {*} context
+     * @param {*} info General info from meta data
+     * @description Register mutation that takes registration form input
+     */
 
     async login(_, { loginInput: { username, password } }, context, info) {
       const { valid, errors } = validateLoginInput(username, password);

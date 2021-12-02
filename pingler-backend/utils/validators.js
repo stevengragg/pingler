@@ -4,6 +4,7 @@
  * @param {String} email
  * @param {String} password
  * @param {String} confirmPassword
+ * @description To add validation on the registration form inputs
  * @returns Object = errors, valid
  */
 
@@ -26,6 +27,14 @@ const validateRegisterInput = (username, email, password, confirmPassword) => {
     valid: Object.keys(errors).length < 1,
   };
 };
+
+/**
+ *
+ * @param {String} username
+ * @param {String} password
+ * @description To add validation on the login form inputs
+ * @returns Object = errors, valid
+ */
 
 const validateLoginInput = (username, password) => {
   const errors = {};

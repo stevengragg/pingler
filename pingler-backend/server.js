@@ -3,6 +3,7 @@
 //Dependencies
 import { ApolloServer } from "apollo-server";
 import mongoose from "mongoose";
+import log from "./utils/log.js";
 
 // Data Config
 import Config from "./config/config.js";
@@ -21,10 +22,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("==== MongoDB Connected ====");
+    log("==== MongoDB Connected ====", { connection_uri });
     return server.listen(port);
   })
   .then((res) => {
-    console.log(`Server running at ${res.url}`);
+    log("==== Server Running ====", { url: res.url });
   })
-  .catch((err) => console.log(err));
+  .catch((err) => log("Error Occured", { err }));
