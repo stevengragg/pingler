@@ -20,5 +20,5 @@ export default (context) => {
     }
     throw new Error("Authentication token must be 'Bearer [token]'");
   }
-  throw new Error("Authentication token must be provided");
+  throw new Error("Authorization header must be provided");
 };
