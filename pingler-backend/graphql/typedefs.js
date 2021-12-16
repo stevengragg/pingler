@@ -9,6 +9,21 @@ const typeDefs = gql`
     body: String!
     createdAt: String!
     username: String!
+    comments: [Comment]!
+    likes: [Like]
+  }
+  # Comment in the post
+  type Comment {
+    id: ID!
+    createdAt: String!
+    username: String!
+    body: String!
+  }
+  # Like in the post
+  type Like {
+    id: ID!
+    createdAt: String!
+    username: String!
   }
   # User collection type def
   type User {
@@ -45,6 +60,12 @@ const typeDefs = gql`
     createPost(body: String!): Post!
     # delete post mutation with postId input and return Post type def
     deletePost(postId: String!): Post!
+    # create comment mutation
+    createComment(postId: String!, body: String!): Post!
+    # delete comment mutation
+    deleteComment(postId: String!, commentId: String!): Post!
+    # like post will work as a toggle
+    likePost(postId: String!): Post!
   }
 `;
 

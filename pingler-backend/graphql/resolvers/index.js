@@ -1,5 +1,6 @@
 import postsResolver from "./posts.js";
 import usersResolver from "./users.js";
+import commentsResolver from "./comments.js";
 // Collections of Resolver per Model
 const resolvers = {
   // All of the Query Resolver
@@ -11,7 +12,10 @@ const resolvers = {
   Mutation: {
     // Users Mutation Resolver
     ...usersResolver.Mutation,
+    // Posts Mutation
     ...postsResolver.Mutation,
+    // Comments Mutations
+    ...commentsResolver.Mutation,
   },
 };
 

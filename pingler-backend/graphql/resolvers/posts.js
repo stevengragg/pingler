@@ -57,6 +57,7 @@ const postsResolver = {
       //context here could have request header information
       try {
         const user = checkAuth(context);
+        if (!user) throw new Error("Please log in to proceed");
         log("createPost: start", { body, user: user.id });
 
         const newPost = new Post({
@@ -87,6 +88,7 @@ const postsResolver = {
     async deletePost(_, { postId }, context) {
       //context here could have request header information
       const user = checkAuth(context);
+      if (!user) throw new Error("Please log in to proceed");
       log("deletePost: start", { postId, user: user.id });
 
       try {
