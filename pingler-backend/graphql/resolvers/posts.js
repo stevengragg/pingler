@@ -139,6 +139,8 @@ const postsResolver = {
       }
     },
   },
+
+  // TODO: Create a Subscription
 };
 
 export default postsResolver;
