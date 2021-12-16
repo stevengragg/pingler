@@ -60,7 +60,9 @@ const postsResolver = {
         const user = checkAuth(context);
         if (!user) throw new Error("Please log in to proceed");
         log("createPost: start", { body, user: user.id });
-
+        if (body.trim() === "") {
+          throw new Error("Post body must NOT be empty");
+        }
         const newPost = new Post({
           body,
           user: user.id,
