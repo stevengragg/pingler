@@ -2,7 +2,8 @@
 import Post from "../../models/Post.js";
 import log from "../../utils/log.js";
 import checkAuth from "../../utils/check-auth.js";
-import { AuthenticationError } from "apollo-server";
+import { AuthenticationError, UserInputError } from "apollo-server";
+
 const postsResolver = {
   Query: {
     /**
@@ -32,7 +33,7 @@ const postsResolver = {
     async getPost(_, { postId }) {
       try {
         log("getPost: start", { running: true, postId });
-        const post = await Post.findById(postId);
+        const post = await Post.findById(Object(postId));
         log("getPost: ended", { success: post ? true : false });
         if (!post) throw new Error("Post not found");
         return post;
@@ -92,7 +93,7 @@ const postsResolver = {
       log("deletePost: start", { postId, user: user.id });
 
       try {
-        const post = await Post.findById(postId);
+        const post = await Post.findById(Object(postId));
         if (!post) throw new Error("Post does not exist");
         if (user.username === post.username) {
           await post.delete();
@@ -102,6 +103,39 @@ const postsResolver = {
         }
       } catch (error) {
         throw new Error(error.message);
+      }
+    },
+    /**
+     * @param {Object} args.postId Posts document id
+     * @param {*} _ parent mutation
+     * @param {*} context Headers
+     * @description To like and unlike thet post
+     */
+    async likePost(_, { postId }, context) {
+      const { username } = checkAuth(context);
+      log("likePost: started", { postId, username });
+
+      const post = await Post.findById(Object(postId));
+      if (post) {
+        log("likePost: post found", { postId });
+        if (post.likes.find((l) => l.username === username)) {
+          // user liked the post, unlike it
+          log("likePost: unlike", { postId });
+          post.likes = post.likes.filter((l) => l.username !== username);
+          await post.save();
+        } else {
+          // use does not like the post, like it
+          log("likePost: like", { postId });
+          post.likes.push({
+            username,
+            createdAt: new Date().toISOString(),
+          });
+        }
+        await post.save();
+        return post;
+      } else {
+        log("likePost: post not found", { postId });
+        throw new UserInputError("Post not found");
       }
     },
   },

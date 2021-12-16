@@ -10,6 +10,7 @@ const commentsResolver = {
      * @param {String} postId
      * @param {String} body
      * @param {*} context headers
+     * @returns {Object} Post
      * @description Create a comment on a post
      */
 
@@ -26,7 +27,7 @@ const commentsResolver = {
         });
       }
 
-      const post = await Post.findById(postId);
+      const post = await Post.findById(Object(postId));
       if (post) {
         log("createComment: post found, commenting", { post: post._id });
         post.comments.unshift({
@@ -48,6 +49,7 @@ const commentsResolver = {
      * @param {String} postId
      * @param {String} commentId
      * @param {*} context headers
+     * @returns {Object} Post
      * @description Delete a comment from the post
      */
 
@@ -60,7 +62,7 @@ const commentsResolver = {
         commentId,
       });
 
-      const post = await Post.findById(postId);
+      const post = await Post.findById(Object(postId));
       if (post) {
         log("deleteComment: post found", { postId: post.id });
 
