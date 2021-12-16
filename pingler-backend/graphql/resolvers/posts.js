@@ -55,18 +55,24 @@ const postsResolver = {
 
     async createPost(_, { body }, context, info) {
       //context here could have request header information
-      const user = checkAuth(context);
-      log("createPost: start", { body, user: user.id });
+      try {
+        const user = checkAuth(context);
+        log("createPost: start", { body, user: user.id });
 
-      const newPost = new Post({
-        body,
-        user: user.id,
-        username: user.username,
-        createdAt: new Date().toISOString(),
-      });
+        const newPost = new Post({
+          body,
+          user: user.id,
+          username: user.username,
+          createdAt: new Date().toISOString(),
+        });
 
-      const post = await newPost.save();
-      return post;
+        const post = await newPost.save();
+        log("createPost: ended", { post });
+        return post;
+      } catch (error) {
+        log("createPost: failed", { error: error.message });
+        throw new Error(error.message);
+      }
     },
 
     /**
@@ -87,7 +93,8 @@ const postsResolver = {
         const post = await Post.findById(postId);
         if (!post) throw new Error("Post does not exist");
         if (user.username === post.username) {
-          return await post.delete();
+          await post.delete();
+          return "Post deleted successfully";
         } else {
           throw new AuthenticationError("Action not allowed");
         }
