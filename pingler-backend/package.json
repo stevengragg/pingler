@@ -1,12 +1,14 @@
 {
-  "name": "pingler",
+  "name": "pingler-backend",
   "version": "1.0.0",
   "description": "Ping your buddy through this cool social media app, Pingler 2021 All rights reserved",
+  "author": "Steven Gragg",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "serve": "node server.js"
   },
   "keywords": [
     "mern",
@@ -17,7 +19,6 @@
     "reactjs",
     "stevengragg"
   ],
-  "author": "Steven Gragg",
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^3.5.0",
